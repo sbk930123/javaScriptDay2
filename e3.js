@@ -19,28 +19,48 @@ const colors = [
   "#ff3f34",
 ];
 
-let colorsCopy = [...colors];
-
 const button = document.querySelector("button");
 
 function changeBackground() {
-  const colorIndex = Math.floor(Math.random() * colorsCopy.length);
-  const color1 = colorsCopy[colorIndex];
-  // splice로 colorIndex로 Copy에 담아놓은 값에서 1개 짜름 (맞나?)
-  colorsCopy.splice(colorIndex, 1);
+  const colorsCopy = colors.slice();
+  const rand1 = Math.floor(Math.random() * colorsCopy.length);
+  const color1 = colorsCopy.splice(rand1, 1);
+  const rand2 = Math.floor(Math.random() * colorsCopy.length);
+  const color2 = colorsCopy.splice(rand2, 1);
 
-  // 하나씩 값이 빠지는지 확인
-  console.log(colorsCopy.length, colors.length, colors); // 정상적으로 빠지는 것이 확인 되었다.
+  console.log(colorsCopy.length + " " + colors.length);
+  console.log(color1[0]);
+  console.log(color2[0]);
 
+  document.body.style.background =
+    "linear-gradient(to right, " + color1[0] + ", " + color2[0] + ")";
+}
 
-  const color2 = colorsCopy[Math.floor(Math.random() * colorsCopy.length)];
-  // 재선언으로 값을 새로 다시 채움 
-  colorsCopy = [...colors];
-  document.body.style.background = "linear-gradient(to right, " + color1 + ", " + color2 + ")";
-
-  // 어떤 값이 뽑아져 나왔는지 확인 ( 또는 겹친 값이 있는지 )
-  console.log(color1);
-  console.log(color2);
+function changeBackground2() {
+  let trueOrFalse = true;
+  let rand1;
+  let rand2;
+  while (trueOrFalse) {
+    rand1 = Math.floor(Math.random() * colors.length);
+    rand2 = Math.floor(Math.random() * colors.length);
+    if (rand1 != rand2) {
+      trueOrFalse = false;
+    }
+  }
+  const color1 = colors[rand1];
+  const color2 = colors[rand2];
+  document.body.style.background =
+    "linear-gradient(to right, " + color1 + ", " + color2 + ")";
 }
 
 button.addEventListener("click", changeBackground);
+
+function while연습() {
+  let value1 = 0;
+  let value2 = 10;
+  while (value1 < value2) {
+    console.log(value1);
+    value1 = value1 + 1;
+  }
+  console.log("끝");
+}
